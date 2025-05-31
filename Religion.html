@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Religion</title>
+  <style>
+    /* ───────────────────────────────────────────────────────────────────────── */
+    /*  Basic Reset + Body Styling                                            */
+    /* ───────────────────────────────────────────────────────────────────────── */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      height: 100%;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
+      color: #f0f0f0;
+      padding: 20px;
+    }
+
+    /* ───────────────────────────────────────────────────────────────────────── */
+    /*  Navbar                                                                 */
+    /* ───────────────────────────────────────────────────────────────────────── */
+    .navbar {
+      background: linear-gradient(90deg, #283048, #859398);
+      padding: 10px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      margin-bottom: 20px;
+    }
+    .logo a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 24px;
+      letter-spacing: 1px;
+    }
+
+    /* ───────────────────────────────────────────────────────────────────────── */
+    /*  Page Title                                                             */
+    /* ───────────────────────────────────────────────────────────────────────── */
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+    }
+
+    /* ───────────────────────────────────────────────────────────────────────── */
+    /*  Study-Card Container                                                   */
+    /* ───────────────────────────────────────────────────────────────────────── */
+    #cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    /* ───────────────────────────────────────────────────────────────────────── */
+    /*  Each Card                                                               */
+    /* ───────────────────────────────────────────────────────────────────────── */
+    .card {
+      background: linear-gradient(135deg, #6B73FF, #000DFF);
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+    }
+
+    /* ───────────────────────────────────────────────────────────────────────── */
+    /*  Content / Answer Panels                                                 */
+    /* ───────────────────────────────────────────────────────────────────────── */
+    .hidden-content {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      padding: 0 15px;
+      transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
+    }
+    .hidden-content.visible {
+      max-height: 300px; /* large enough to hold text */
+      opacity: 1;
+      padding-top: 15px;
+      padding-bottom: 15px;
+    }
+    .hidden-content p {
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+      color: #f0f0f0;
+    }
+    .hidden-content .label {
+      font-weight: bold;
+      text-decoration: underline;
+      margin-bottom: 0.5rem;
+      display: block;
+      color: #fff;
+    }
+
+    /* ───────────────────────────────────────────────────────────────────────── */
+    /*  Buttons                                                                 */
+    /* ───────────────────────────────────────────────────────────────────────── */
+    .card button {
+      display: inline-block;
+      width: calc(50% - 10px);
+      margin: 10px 5px;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #FF416C, #FF4B2B);
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    .card button:hover {
+      background: linear-gradient(135deg, #FF4B2B, #FF416C);
+      transform: translateY(-2px);
+    }
+    .card button:active {
+      transform: translateY(1px);
+    }
+
+    /* ───────────────────────────────────────────────────────────────────────── */
+    /*  iFrame                                                                 */
+    /* ───────────────────────────────────────────────────────────────────────── */
+    iframe {
+      border: none;
+      border-radius: 8px;
+      margin-top: 40px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="navbar">
+    <div class="logo">
+      <a href="index.html">Exams</a>
+    </div>
+  </div>
+
+  <h1>Religion Exam Study Cards</h1>
+
+  <!-- ───────────────────────────────────────────────────────────────────────── -->
+  <!--  Cards Container                                                        -->
+  <!-- ───────────────────────────────────────────────────────────────────────── -->
+  <div id="cards"></div>
+
+  <!-- ───────────────────────────────────────────────────────────────────────── -->
+  <!--  Embedded Form (unchanged)                                               -->
+  <!-- ───────────────────────────────────────────────────────────────────────── -->
+  <iframe 
+    width="100%" 
+    height="480px" 
+    src="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAN__lzqQmtUOEFBNEs3VVZNWVhPN1o5NzdPTktBUlA3Qy4u&amp;embed=true" 
+    allowfullscreen 
+    webkitallowfullscreen 
+    mozallowfullscreen 
+    msallowfullscreen>
+  </iframe>
+
+  <!-- ───────────────────────────────────────────────────────────────────────── -->
+  <!--  JavaScript to Generate and Toggle Cards                                 -->
+  <!-- ───────────────────────────────────────────────────────────────────────── -->
+  <script>
+    // ─────────────────────────────────────────────────────────────────────────
+    //  Data: List of cards (question + answer)
+    // ─────────────────────────────────────────────────────────────────────────
+    const cardsData = [
+      {
+        question: "Qui sont les Évangélistes ? Raconte brièvement le parcours de chacun.",
+        answer: "Matthieu (ex-collecteur d’impôts devenu apôtre), Marc (compagnon de Pierre, écrit pour les Romains), Luc (médecin, écrit pour les païens), Jean (apôtre proche de Jésus, très spirituel)."
+      },
+      {
+        question: "Quelle est la différence entre l’Ancien et le Nouveau Testament ?",
+        answer: "L’Ancien Testament raconte l’alliance de Dieu avec le peuple juif ; le Nouveau Testament présente la vie, la mort et la résurrection de Jésus, ainsi que la fondation de l’Église."
+      },
+      {
+        question: "Raconte le mythe de création tel qu’écrit dans la Bible.",
+        answer: "Dieu crée le monde en six jours : lumière (1), ciel et eau (2), terre et végétation (3), lumères du ciel (4), animaux marins et volatiles (5), animaux terrestres et humains (6). Au septième jour, Dieu se repose."
+      },
+      {
+        question: "Qu’est-ce que la dignité ?",
+        answer: "La dignité est la valeur inhérente à chaque personne parce que nous sommes créés à l’image de Dieu ; elle exige le respect, la justice et la reconnaissance de la valeur unique de chaque être humain."
+      },
+      {
+        question: "Qu’est-ce que le Décalogue ?",
+        answer: "Ce sont les Dix Commandements donnés à Moïse sur le mont Sinaï, qui établissent les fondements moraux et spirituels pour la relation entre Dieu et l’humanité."
+      },
+      {
+        question: "À quoi sert le Décalogue ?",
+        answer: "Il sert de guide moral pour les croyants, en orientant leurs actions envers Dieu (premières tables) et envers leurs prochains (deuxième table), favorisant une vie juste et sainte."
+      },
+      {
+        question: "Qu’est-ce que la liberté ?",
+        answer: "La liberté, en contexte catholique, est la capacité de choisir le bien (liberté intérieure), de suivre sa conscience éclairée, et d’agir selon la volonté de Dieu, loin de l’esclavage du péché."
+      },
+      {
+        question: "Nomme les 4 types de libertés. Donne deux exemples pour chacun.",
+        answer: 
+          "1. Liberté physique : se déplacer librement, pratiquer un métier de son choix.\n" +
+          "2. Liberté psychologique : penser librement, gérer ses émotions sans contrainte extérieure.\n" +
+          "3. Liberté sociale : exprimer des opinions (liberté d’expression), participer à la vie citoyenne (vote).\n" +
+          "4. Liberté morale : choisir d’aimer Dieu et son prochain, refuser le mal malgré la pression sociale."
+      },
+      {
+        question: "Identifie les caractéristiques de l’Esprit Saint.",
+        answer: "Force, sagesse, intelligence, conseil, science, piété, crainte de Dieu. Ce sont les sept dons de l’Esprit, qui aident le croyant à vivre selon l’Évangile."
+      },
+      {
+        question: "Nomme les 7 sacrements.",
+        answer: "Baptême, Eucharistie, Confirmation, Réconciliation (Pénitence), Onction des malades, Mariage, Ordre. Chacun est une rencontre privilégiée avec la grâce de Dieu."
+      },
+      {
+        question: "Qu’est-ce que la justice sociale ?",
+        answer: "La justice sociale vise à organiser la société de manière équitable, à reconnaître la dignité de chaque personne, à garantir l’accès aux droits fondamentaux (travail, logement, éducation) et à lutter contre l’oppression."
+      },
+      {
+        question: "Explique la structure de l’Église.",
+        answer: 
+          "L’Église universelle : le Pape (successeur de Pierre)\n" +
+          "Les évêques (successeurs des apôtres), les prêtres, les diacres\n" +
+          "Les fidèles laïcs\n" +
+          "Le pape enseigne et gouverne, les évêques veillent sur les diocèses, les prêtres servent les communautés locales, les laïcs vivent la mission dans le monde."
+      },
+      {
+        question: "Explique ce que l’Église nous donne.",
+        answer: "Les sacrements (entrer en communion avec Dieu), l’enseignement (Bible, Tradition), la communauté (fraternité des croyants), la formation spirituelle (prière, catéchèse), le soutien dans les épreuves."
+      }
+      // … ajoutez ici vos autres cartes pour Habileté de la pensée, Mise en application, Exégèse, etc.
+    ];
+
+    // ─────────────────────────────────────────────────────────────────────────
+    //  Génère chaque carte et l’attache au conteneur
+    // ─────────────────────────────────────────────────────────────────────────
+    const cardsContainer = document.getElementById('cards');
+
+    cardsData.forEach((card, index) => {
+      const cardEl = document.createElement('div');
+      cardEl.className = 'card';
+
+      // Attention aux guillemets et aux retours à la ligne : tout est dans ce template literal.
+      cardEl.innerHTML = `
+        <div class="hidden-content" id="question-${index}">
+          <span class="label">Question :</span>
+          <p>${card.question}</p>
+        </div>
+
+        <div class="hidden-content" id="answer-${index}">
+          <span class="label">Réponse :</span>
+          <p>${card.answer.replace(/\n/g, '<br>')}</p>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 15px;">
+          <button onclick="toggleVisibility(${index}, 'content')">Show Question</button>
+          <button onclick="toggleVisibility(${index}, 'answer')">Show Answer</button>
+        </div>
+      `;
+      cardsContainer.appendChild(cardEl);
+    });
+
+    // ─────────────────────────────────────────────────────────────────────────
+    //  Fonction pour basculer l’affichage Question / Réponse
+    // ─────────────────────────────────────────────────────────────────────────
+    function toggleVisibility(index, type) {
+      const qEl = document.getElementById(`question-${index}`);
+      const aEl = document.getElementById(`answer-${index}`);
+
+      if (type === 'content') {
+        const isVisible = qEl.classList.contains('visible');
+        aEl.classList.remove('visible');
+        isVisible
+          ? qEl.classList.remove('visible')
+          : qEl.classList.add('visible');
+      } else {
+        const isVisible = aEl.classList.contains('visible');
+        qEl.classList.remove('visible');
+        isVisible
+          ? aEl.classList.remove('visible')
+          : aEl.classList.add('visible');
+      }
+    }
+  </script>
+</body>
+</html>

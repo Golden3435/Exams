@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Art Des métiers – Révision examen 2024</title>
+  <style>
+    /* ───────────────────────────────────────────────────────────────────────── */
+    /*  Basic Reset + Body Styling                                            */
+    /* ───────────────────────────────────────────────────────────────────────── */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      height: 100%;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
+      color: #f0f0f0;
+      padding: 20px;
+    }
+
+    /* ───────────────────────────────────────────────────────────────────────── */
+    /*  Navbar                                                                 */
+    /* ───────────────────────────────────────────────────────────────────────── */
+    .navbar {
+      background: linear-gradient(90deg, #283048, #859398);
+      padding: 10px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      margin-bottom: 20px;
+    }
+    .logo a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 24px;
+      letter-spacing: 1px;
+    }
+
+    /* ───────────────────────────────────────────────────────────────────────── */
+    /*  Page Title                                                             */
+    /* ───────────────────────────────────────────────────────────────────────── */
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+    }
+
+    /* ───────────────────────────────────────────────────────────────────────── */
+    /*  Study-Card Container                                                   */
+    /* ───────────────────────────────────────────────────────────────────────── */
+    #cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    /* ───────────────────────────────────────────────────────────────────────── */
+    /*  Each Card                                                               */
+    /* ───────────────────────────────────────────────────────────────────────── */
+    .card {
+      background: linear-gradient(135deg, #6B73FF, #000DFF);
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+    }
+
+    /* ───────────────────────────────────────────────────────────────────────── */
+    /*  Content / Answer Panels                                                 */
+    /* ───────────────────────────────────────────────────────────────────────── */
+    .hidden-content {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      padding: 0 15px;
+      transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
+    }
+    .hidden-content.visible {
+      max-height: 300px; /* suffisamment grand pour tenir le texte */
+      opacity: 1;
+      padding-top: 15px;
+      padding-bottom: 15px;
+    }
+    .hidden-content p {
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+      color: #f0f0f0;
+    }
+    .hidden-content .label {
+      font-weight: bold;
+      text-decoration: underline;
+      margin-bottom: 0.5rem;
+      display: block;
+      color: #fff;
+    }
+
+    /* ───────────────────────────────────────────────────────────────────────── */
+    /*  Buttons                                                                 */
+    /* ───────────────────────────────────────────────────────────────────────── */
+    .card button {
+      display: inline-block;
+      width: calc(50% - 10px);
+      margin: 10px 5px;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #FF416C, #FF4B2B);
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    .card button:hover {
+      background: linear-gradient(135deg, #FF4B2B, #FF416C);
+      transform: translateY(-2px);
+    }
+    .card button:active {
+      transform: translateY(1px);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="navbar">
+    <div class="logo">
+      <a href="index.html">Exams</a>
+    </div>
+  </div>
+
+  <h1>Révision examen 2024 – AWA1O</h1>
+
+  <!-- ───────────────────────────────────────────────────────────────────────── -->
+  <!--  Cards Container                                                        -->
+  <!-- ───────────────────────────────────────────────────────────────────────── -->
+  <div id="cards"></div>
+
+  <!-- ───────────────────────────────────────────────────────────────────────── -->
+  <!--  JavaScript to Generate and Toggle Cards                                 -->
+  <!-- ───────────────────────────────────────────────────────────────────────── -->
+  <script>
+    // ─────────────────────────────────────────────────────────────────────────
+    //  Données : Liste des cartes (question + réponse)
+    // ─────────────────────────────────────────────────────────────────────────
+    const cardsData = [
+      {
+        question: "Règles de sécurité",
+        answer: "Distinction entre règles générales et règles spécifiques aux différents projets."
+      },
+      {
+        question: "Créer des décorations",
+        answer: "Saint-Valentin + le mois de l’histoire des Noirs."
+      },
+      {
+        question: "Cuivre repoussé",
+        answer: "Technique de mise en forme du cuivre par martelage pour créer des motifs en relief."
+      },
+      {
+        question: "Cuillère de tilleul",
+        answer: "Réalisation d’une cuillère sculptée dans le bois de tilleul : choix de la matière, dégrossissage, finition."
+      },
+      {
+        question: "Faux-cadre + entoilage + peinture",
+        answer: "Fabrication d’un cadre simulé (faux-cadre), préparation de la toile (entoilage) et application de la peinture."
+      },
+      {
+        question: "Notions sur les outils",
+        answer: 
+          "• Types d’outils : papier sablé, pyrograveur, etc.\n" +
+          "• Fonction de chaque outil.\n" +
+          "• Utilité dans les différents projets d’atelier."
+      },
+      {
+        question: "Liens compétences - habiletés",
+        answer: "Établir des liens entre les compétences et habiletés nécessaires en art des métiers et leur application dans la vie scolaire et quotidienne."
+      },
+      {
+        question: "Importance de la santé et sécurité",
+        answer: "Démontrer sa compréhension de l’importance de la santé et sécurité : en atelier, à l’école, au travail."
+      },
+      {
+        question: "Fonctions de l’art",
+        answer: "Expliquer la ou les fonctions de l’art en lien avec les projets réalisés au cours du semestre."
+      }
+    ];
+
+    // ─────────────────────────────────────────────────────────────────────────
+    //  Génère chaque carte et l’attache au conteneur
+    // ─────────────────────────────────────────────────────────────────────────
+    const cardsContainer = document.getElementById('cards');
+
+    cardsData.forEach((card, index) => {
+      const cardEl = document.createElement('div');
+      cardEl.className = 'card';
+
+      // Chaque carte contient deux sections masquées (question + réponse)
+      cardEl.innerHTML = `
+        <div class="hidden-content" id="question-${index}">
+          <span class="label">Sujet :</span>
+          <p>${card.question}</p>
+        </div>
+
+        <div class="hidden-content" id="answer-${index}">
+          <span class="label">Détails :</span>
+          <p>${card.answer.replace(/\n/g, '<br>')}</p>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 15px;">
+          <button onclick="toggleVisibility(${index}, 'content')">Show Question</button>
+          <button onclick="toggleVisibility(${index}, 'answer')">Show Answer</button>
+        </div>
+      `;
+
+      cardsContainer.appendChild(cardEl);
+    });
+
+    // ─────────────────────────────────────────────────────────────────────────
+    //  Fonction pour basculer l’affichage Question / Réponse
+    // ─────────────────────────────────────────────────────────────────────────
+    function toggleVisibility(index, type) {
+      const qEl = document.getElementById(`question-${index}`);
+      const aEl = document.getElementById(`answer-${index}`);
+
+      if (type === 'content') {
+        const isVisible = qEl.classList.contains('visible');
+        aEl.classList.remove('visible');
+        isVisible
+          ? qEl.classList.remove('visible')
+          : qEl.classList.add('visible');
+      } else {
+        const isVisible = aEl.classList.contains('visible');
+        qEl.classList.remove('visible');
+        isVisible
+          ? aEl.classList.remove('visible')
+          : aEl.classList.add('visible');
+      }
+    }
+  </script>
+</body>
+</html>
